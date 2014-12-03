@@ -5,9 +5,32 @@
 #include<fstream> //needed for files
 #include<vector>
 #include "atom.cpp"
+#include "book.h"
 
 using namespace std;
 
+void makeBox(double box) {
+	ofstream fout;
+	fout.open("box.xyz");
+	fout << 12*box << endl;
+	fout << "box " << endl;
+	for (int b =0; b<box; b++) {
+		
+		fout<<"box   "<< b <<"	"<< 0 << "	"<< 0 << endl;
+		fout<<"box   "<< 0 <<"	"<< b << "	"<< 0 << endl;
+		fout<<"box   "<< 0 <<"	"<< 0 << "	"<< b << endl;
+		fout<<"box   "<< box <<"	"<< b << "	"<< 0 << endl;
+		fout<<"box   "<< box <<"	"<< 0 << "	"<< b << endl;
+		fout<<"box   "<< b <<"	"<< box << "	"<< 0 << endl;
+		fout<<"box   "<< 0 <<"	"<< box << "	"<< b << endl;
+		fout<<"box   "<< b <<"	"<< 0 << "	"<< box << endl;
+		fout<<"box   "<< 0 <<"	"<< b << "	"<< box << endl;
+		fout<<"box   "<< box <<"	"<< box << "	"<< b << endl;
+		fout<<"box   "<< b <<"	"<< box << "	"<< box << endl;
+		fout<<"box   "<< box <<"	"<< b << "	"<< box << endl;
+	}
+	fout.close();
+}
 
 void updateCoor(vector<Atom>& atoms, int numAtoms, int i, double box, double timeStep) {
 	double x;
@@ -190,6 +213,9 @@ double defBox(int numAtoms,double temperature) {
 }
 
  void simulation2(){
+ 
+        double *dev_a, *dev_b, *dev_c;
+	double *xCoor, *xVel;
 	double ang = 0.0000000001;
 
 	ifstream atom_file;
@@ -198,6 +224,8 @@ double defBox(int numAtoms,double temperature) {
 	atom_file >> numAtoms;
 
 	vector<Atom> atoms;
+	malloc( (double)&xCoor, numAtoms * sizeof(double);
+	malloc( (double)&xVel, numAtoms * sizeof(double);
 
 	int iterations;
 	atom_file>> iterations;
@@ -233,8 +261,11 @@ double defBox(int numAtoms,double temperature) {
 	  initial_file >> initialyVel;
 	  initial_file >> initialzVel;
 	
-	  atoms.push_back(Atom(mass,initialx/ang,initialy/ang,initialz/ang,initialxVel,initialyVel,initialzVel));
+	  atoms.push_back( Atom(mass,initialx/ang,initialy/ang,initialz/ang,initialxVel,initialyVel,initialzVel));
       	}
+	for (int i=0; i<numAtoms; i++){
+
+	  
        
 	initial_file.close();	
 
@@ -244,9 +275,16 @@ double defBox(int numAtoms,double temperature) {
 	/*for(double i =0; i<numAtoms; i++) {
 		atoms.push_back(Atom(mass*1.66053892 * pow(10,-27),fmod(rand(),box),fmod(rand(),box),fmod(rand(),box),fmod(rand(),500)-250,fmod(rand(),500)-250,fmod(rand(),500)-250));
 		}*/
+
+	    HANDLE_ERROR( cudaMalloc( (void**)&dev_a, numAtoms * sizeof(double) ) );
+	    HANDLE_ERROR( cudaMalloc( (void**)&dev_b, numAtoms * sizeof(double) ) );
+	    HANDLE_ERROR( cudaMalloc( (void**)&dev_c, numAtoms * sizeof(double) ) );
+
 	for(int i = 0; i<iterations; i++) {
-		updateCoor(atoms, numAtoms, i, box, timeStep);
-		updateVel(atoms, numAtoms, box, timeStep, i);
+	        cudaMemcpy(dev_a, atoms.getxCoor() , numAtoms * sizeof(double) , cudaMemcpyHostToDevice);
+		cudaMemcpy(dev_b, atoms.getxVel(), numAtoms * sizeof(double) , cudaMemcpyHostToDevice);
+		//updateCoor(atoms, numAtoms, i, box, timeStep);
+		//updateVel(atoms, numAtoms, box, timeStep, i);
 	}
 
 }
