@@ -83,63 +83,63 @@ void updateVel(vector<Atom>& atoms, int numAtoms, double box, double timeStep, i
 						+ (atoms[l].getzCoor()-atoms[k].getzCoor())*(atoms[l].getzCoor()-atoms[k].getzCoor());
 					if (dist < min) {
 						min = dist;
-						dx =atoms[l].getxCoor()-atoms[k].getxCoor();
-						dy =atoms[l].getyCoor()-atoms[k].getyCoor();
-						dz =atoms[l].getzCoor()-atoms[k].getzCoor();
+						dx =atoms[k].getxCoor()-atoms[l].getxCoor();
+						dy =atoms[k].getyCoor()-atoms[l].getyCoor();
+						dz =atoms[k].getzCoor()-atoms[l].getzCoor();
 					}
 					dist = (atoms[l].getxCoor()-atoms[k].getxCoor()-box)*(atoms[l].getxCoor()-atoms[k].getxCoor()-box)
 						+(atoms[l].getyCoor()-atoms[k].getyCoor())*(atoms[l].getyCoor()-atoms[k].getyCoor())
 						+ (atoms[l].getzCoor()-atoms[k].getzCoor())*(atoms[l].getzCoor()-atoms[k].getzCoor());					
 					if (dist < min) {
 						min = dist;
-						dx =atoms[l].getxCoor()-atoms[k].getxCoor()-box;
-						dy =atoms[l].getyCoor()-atoms[k].getyCoor();
-						dz =atoms[l].getzCoor()-atoms[k].getzCoor();
+						dx =atoms[k].getxCoor()-atoms[l].getxCoor()-box;
+						dy =atoms[k].getyCoor()-atoms[l].getyCoor();
+						dz =atoms[k].getzCoor()-atoms[l].getzCoor();
 					}			
 					dist = (atoms[l].getxCoor()-atoms[k].getxCoor()+box)*(atoms[l].getxCoor()-atoms[k].getxCoor()+box)
 						+(atoms[l].getyCoor()-atoms[k].getyCoor())*(atoms[l].getyCoor()-atoms[k].getyCoor())
 						+ (atoms[l].getzCoor()-atoms[k].getzCoor())*(atoms[l].getzCoor()-atoms[k].getzCoor());					
 					if (dist < min){
 						min = dist;
-						dx =atoms[l].getxCoor()-atoms[k].getxCoor()+box;
-						dy =atoms[l].getyCoor()-atoms[k].getyCoor();
-						dz =atoms[l].getzCoor()-atoms[k].getzCoor();
+						dx =atoms[k].getxCoor()-atoms[l].getxCoor()+box;
+						dy =atoms[k].getyCoor()-atoms[l].getyCoor();
+						dz =atoms[k].getzCoor()-atoms[l].getzCoor();
 					}			
 					dist = (atoms[l].getxCoor()-atoms[k].getxCoor())*(atoms[l].getxCoor()-atoms[k].getxCoor())
 						+(atoms[l].getyCoor()-atoms[k].getyCoor()-box)*(atoms[l].getyCoor()-atoms[k].getyCoor()-box)
 						+ (atoms[l].getzCoor()-atoms[k].getzCoor())*(atoms[l].getzCoor()-atoms[k].getzCoor());					
 					if (dist < min){
 						min = dist;
-						dx =atoms[l].getxCoor()-atoms[k].getxCoor();
-						dy =atoms[l].getyCoor()-atoms[k].getyCoor()-box;
-						dz =atoms[l].getzCoor()-atoms[k].getzCoor();
+						dx =atoms[k].getxCoor()-atoms[l].getxCoor();
+						dy =atoms[k].getyCoor()-atoms[l].getyCoor()-box;
+						dz =atoms[k].getzCoor()-atoms[l].getzCoor();
 					}
 					dist = (atoms[l].getxCoor()-atoms[k].getxCoor())*(atoms[l].getxCoor()-atoms[k].getxCoor())
 						+(atoms[l].getyCoor()-atoms[k].getyCoor()+box)*(atoms[l].getyCoor()-atoms[k].getyCoor()+box)
 						+ (atoms[l].getzCoor()-atoms[k].getzCoor())*(atoms[l].getzCoor()-atoms[k].getzCoor());					
 					if (dist < min){
 						min = dist;
-						dx =atoms[l].getxCoor()-atoms[k].getxCoor();
-						dy =atoms[l].getyCoor()-atoms[k].getyCoor()+box;
-						dz =atoms[l].getzCoor()-atoms[k].getzCoor();
+						dx =atoms[k].getxCoor()-atoms[l].getxCoor();
+						dy =atoms[k].getyCoor()-atoms[l].getyCoor()+box;
+						dz =atoms[k].getzCoor()-atoms[l].getzCoor();
 					}		
 					dist = (atoms[l].getxCoor()-atoms[k].getxCoor())*(atoms[l].getxCoor()-atoms[k].getxCoor())
 						+(atoms[l].getyCoor()-atoms[k].getyCoor())*(atoms[l].getyCoor()-atoms[k].getyCoor())
 						+ (atoms[l].getzCoor()-atoms[k].getzCoor()-box)*(atoms[l].getzCoor()-atoms[k].getzCoor()-box);					
 					if (dist < min){
 						min = dist;
-						dx =atoms[l].getxCoor()-atoms[k].getxCoor();
-						dy =atoms[l].getyCoor()-atoms[k].getyCoor();
-						dz =atoms[l].getzCoor()-atoms[k].getzCoor()-box;
+						dx =atoms[k].getxCoor()-atoms[l].getxCoor();
+						dy =atoms[k].getyCoor()-atoms[l].getyCoor();
+						dz =atoms[k].getzCoor()-atoms[l].getzCoor()-box;
 					}
 					dist = (atoms[l].getxCoor()-atoms[k].getxCoor())*(atoms[l].getxCoor()-atoms[k].getxCoor())
 						+(atoms[l].getyCoor()-atoms[k].getyCoor())*(atoms[l].getyCoor()-atoms[k].getyCoor())
 						+ (atoms[l].getzCoor()-atoms[k].getzCoor()+box)*(atoms[l].getzCoor()-atoms[k].getzCoor()+box);					
 					if (dist < min){
 						min = dist;
-						dx =atoms[l].getxCoor()-atoms[k].getxCoor();
-						dy =atoms[l].getyCoor()-atoms[k].getyCoor();
-						dz =atoms[l].getzCoor()-atoms[k].getzCoor()+box;
+						dx =atoms[k].getxCoor()-atoms[l].getxCoor();
+						dy =atoms[k].getyCoor()-atoms[l].getyCoor();
+						dz =atoms[k].getzCoor()-atoms[l].getzCoor()+box;
 					}
 					dx= dx*ang;
 					dy=dy*ang;
@@ -150,9 +150,9 @@ void updateVel(vector<Atom>& atoms, int numAtoms, double box, double timeStep, i
 						*(dx*dx+dy*dy+dz*dz);
 					double D_4 = (dx*dx+dy*dy+dz*dz)*(dx*dx+dy*dy+dz*dz)*(dx*dx+dy*dy+dz*dz)*(dx*dx+dy*dy+dz*dz);
 					double sig_6= sig*sig*sig*sig*sig*sig;
-					Fx = -1*(24*E*sig_6*dx*((2*sig_6/(D_7))-(1/(D_4))));
-					Fy = -1*(24*E*sig_6*dy*((2*sig_6/(D_7))-(1/(D_4))));					
-					Fz = -1*(24*E*sig_6*dz*((2*sig_6/(D_7))-(1/(D_4))));
+					Fx = (24*E*sig_6*dx*((2*sig_6/(D_7))-(1/(D_4))));
+					Fy = (24*E*sig_6*dy*((2*sig_6/(D_7))-(1/(D_4))));					
+					Fz = (24*E*sig_6*dz*((2*sig_6/(D_7))-(1/(D_4))));
 					x= atoms[k].getxVel() + (Fx/atoms[k].getMass())*timeStep;
 					y= atoms[k].getyVel() + (Fy/atoms[k].getMass())*timeStep;
 					z= atoms[k].getzVel() + (Fz/atoms[k].getMass())*timeStep;
@@ -214,7 +214,7 @@ double defBox(int numAtoms,double temperature) {
 	atom_file.close();
 
 	box /= ang; //convert to angstroms
-	makeBox(box);
+	//makeBox(box);
 
 	ifstream initial_file;
 	initial_file.open("initial.txt", ios::in);
